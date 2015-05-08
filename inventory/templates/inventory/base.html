@@ -2,11 +2,15 @@
 <html>
     <head>
         <title>Inventory</title>
+        {% load staticfiles %}
         	<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+		      <!-- Optional theme -->
+		      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+          <!-- Custon CSS File -->
+          <link rel="stylesheet" href="{% static 'inventory/style.css' %}" />
     </head>
 
     <body>
@@ -20,20 +24,37 @@
         				<span class="icon-bar"></span>
         				<span class="icon-bar"></span>
       				</button>
-      				<a class="navbar-brand" href="#">
+      				<a class="navbar-brand" href="{% url 'inventory:index' %}">
         				<img alt="Brand" width="17px" height="20px" src="http://www.keansburg.k12.nj.us/cms/lib02/NJ01001933/Centricity/Domain/777/New%20Titan%20KT.png">
       				</a>
     			</div>
     			<div class="collapse navbar-collapse" id="navigation-bar">
     				<ul class="nav navbar-nav">
-    					<li><a href="http://www.google.com">Google</a></li>
+    					<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="{% url 'inventory:userSearch' %}">User Search</a></li>
+            <li class="divider"></li>
+            <li><a href="#">New User</a></li>
+            <li><a href="#">Users List</a></li>
+          </ul>
+        </li>
     				</ul>
     			</div>
   			</div>
 		</nav>
+    <div class="container">
+      {% if messages %}
+        {% for message in messages %}
+          <p class="message-box {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}<p>
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div class="container">
     	{% block content %}
     	{% endblock content %}
-    	</div>
+    </div>
+    </div>
     	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<!-- Latest compiled and minified JavaScript -->
