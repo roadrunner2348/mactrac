@@ -3,55 +3,32 @@ from django.contrib import admin
 from datetime import datetime
 
 
-class Status(models.Model):
-	name = models.CharField(max_length=30)
-	inactive = models.BooleanField()
-
-	def __str__(self):
-		return self.name
-
-class School(models.Model):
-	name = models.CharField(max_length=50)
-	short_name = models.CharField(max_length=4)
-
-	def __str__(self):
-		return self.name
-
-class Class_Year(models.Model):
-	year_of_graduation = models.PositiveIntegerField()
-	@property
-	def grade_level(self):
-		current_year = datetime.now().year
-		current_month = datetime.now().month
-		if current_month > 6:
-			current_year += 1
-		grade = 12 - (self.year_of_graduation - current_year)
-		if grade == 0:
-			return "K"
-		elif grade < 0:
-			return "PREK"
-		else:
-			return grade
-
-	def __str__(self):
-		return str(self.grade_level)
-
-class Role(models.Model):
-	name = models.CharField(max_length=50)
-
-	def __str__(self):
-		return self.name
-
 class Person(models.Model):
 	first_name = models.CharField(max_length=50)
 	last_name = models.CharField(max_length=50)
-	status = models.ForeignKey(Status)
-	school = models.ForeignKey(School)
+	STATUS_CHOICES = (
+			('ACTIVE', 'Active'),
+			('INACTIVE', 'Inactive')
+		)
+	status = models.CharField(max_length=10, choices = STATUS_CHOICES)
+	SCHOOL_CHOICES = (
+			('KHS', 'Keansburg High School'),
+			('BMS', 'Bolger Middle School'),
+			('CES', 'Caruso Elementary School'),
+			('PMR', 'Port Monmouth Road Elementary'),
+			('OOD', 'Out of District Students'),
+			('PREG', 'Pre-Registration Students'),
+			('INACT', 'Inactive Students'),
+			('EARLY', 'Early Intervention'),
+			('STVOC', 'State Facility and Full Time Vocational'),
+			('SS', 'Summer School KHS')
+		)
+	school = models.CharField(max_length=6, choices=SCHOOL_CHOICES)
 	GENDER_CHOICES = (
 			('F','Female'),
 			('M','Male'),
 		)
-	gender = models.CharField(max_length = 2, choices = GENDER_CHOICES, default='F')
+	gender = models.CharField(max_length = 2, choices = GENDER_CHOICES)
 
 	@property
 	def full_name(self):
@@ -60,26 +37,30 @@ class Person(models.Model):
 
 class Student(Person):
 	student_id = models.PositiveIntegerField()
-	class_year = models.ForeignKey(Class_Year)
+	state_id = models.PositiveIntegerField()
+	GRADE_CHOICES = (
+		('3H', 'Half-day Pre-School (3 Years Old)'),
+		('3F', 'Full-day Pre-School (3 Years Old)'),
+		('4H', 'Half-day Pre-School (4 Years Old)'),
+		('4F', 'Full-day Pre-School (4 Years Old)'),
+		('KH', 'Half-day Kindergarten'),
+		('KF', 'Full-day Kindergarten'),
+		('01', 'Grade 1'),
+		('02', 'Grade 2'),
+		('03', 'Grade 3'),
+		('04', 'Grade 4'),
+		('05', 'Grade 5'),
+		('06', 'Grade 6'),
+		('07', 'Grade 7'),
+		('08', 'Grade 8'),
+		('09', 'Grade 9'),
+		('10', 'Grade 10'),
+		('11', 'Grade 11'),
+		('12', 'Grade 12'),
+		('PG', 'Post Graduate'),
+		('AD', 'Adult High School')
+	)
+	grade_level = models.CharField(max_length = 2, choices = GRADE_CHOICES)
 
-
-class Staff(Person):
-	role = models.ForeignKey(Role)
-class StaffAdmin(admin.ModelAdmin):
-	list_display = ['first_name','last_name', 'full_name', 'role', 'status']
-
-class StudentAdmin(admin.ModelAdmin):
-	list_display = ['first_name', 'last_name', 'class_year','school']
-	list_filter = ['school', 'class_year']
-
-class YearAdmin(admin.ModelAdmin):
-	list_display = ['year_of_graduation', 'grade_level']
-
-admin.site.register(Status)
-admin.site.register(School)
-admin.site.register(Class_Year, YearAdmin)
-admin.site.register(Role)
-admin.site.register(Student, StudentAdmin)
-admin.site.register(Staff, StaffAdmin)
 
 
