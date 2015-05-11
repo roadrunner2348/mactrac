@@ -2,8 +2,7 @@ from django.db import models
 from django.contrib import admin
 from datetime import datetime
 
-
-class Person(models.Model):
+class Student(models.Model):
 	first_name = models.CharField(max_length=50)
 	last_name = models.CharField(max_length=50)
 	STATUS_CHOICES = (
@@ -33,10 +32,7 @@ class Person(models.Model):
 	@property
 	def full_name(self):
 		return self.first_name + " " + self.last_name
-
-
-class Student(Person):
-	student_id = models.PositiveIntegerField()
+	student_id = models.PositiveIntegerField(unique = True)
 	state_id = models.PositiveIntegerField()
 	GRADE_CHOICES = (
 		('3H', 'Half-day Pre-School (3 Years Old)'),
@@ -45,16 +41,16 @@ class Student(Person):
 		('4F', 'Full-day Pre-School (4 Years Old)'),
 		('KH', 'Half-day Kindergarten'),
 		('KF', 'Full-day Kindergarten'),
-		('01', 'Grade 1'),
-		('02', 'Grade 2'),
-		('03', 'Grade 3'),
-		('04', 'Grade 4'),
-		('05', 'Grade 5'),
-		('06', 'Grade 6'),
-		('07', 'Grade 7'),
-		('08', 'Grade 8'),
-		('09', 'Grade 9'),
-		('10', 'Grade 10'),
+		('1', 'Grade 1'),
+		('2', 'Grade 2'),
+		('3', 'Grade 3'),
+		('4', 'Grade 4'),
+		('5', 'Grade 5'),
+		('6', 'Grade 6'),
+		('7', 'Grade 7'),
+		('8', 'Grade 8'),
+		('9', 'Grade 9'),
+		('0', 'Grade 10'),
 		('11', 'Grade 11'),
 		('12', 'Grade 12'),
 		('PG', 'Post Graduate'),

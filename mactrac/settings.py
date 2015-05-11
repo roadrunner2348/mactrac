@@ -80,9 +80,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mactrac',
         'USER': 'mactrac',
-        'PASSWORD': 'mactrac',
+        'PASSWORD': 'Jersey5757',
         'HOST': 'localhost',
-        'PORT': '8889',
+        'PORT': '3306',
     }
 }
 
