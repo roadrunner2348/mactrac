@@ -9,7 +9,7 @@ class Student(models.Model):
 			('ACTIVE', 'Active'),
 			('INACTIVE', 'Inactive')
 		)
-	status = models.CharField(max_length=10, choices = STATUS_CHOICES)
+	status = models.CharField(max_length=10, choices = STATUS_CHOICES, blank=False, default='ACTIVE')
 	SCHOOL_CHOICES = (
 			('KHS', 'Keansburg High School'),
 			('BMS', 'Bolger Middle School'),
@@ -22,12 +22,12 @@ class Student(models.Model):
 			('STVOC', 'State Facility and Full Time Vocational'),
 			('SS', 'Summer School KHS')
 		)
-	school = models.CharField(max_length=6, choices=SCHOOL_CHOICES)
+	school = models.CharField(max_length=6, choices=SCHOOL_CHOICES, blank=False, default='KHS')
 	GENDER_CHOICES = (
 			('F','Female'),
 			('M','Male'),
 		)
-	gender = models.CharField(max_length = 2, choices = GENDER_CHOICES)
+	gender = models.CharField(max_length = 2, choices = GENDER_CHOICES, blank=False, default='F')
 
 	@property
 	def full_name(self):
@@ -56,7 +56,7 @@ class Student(models.Model):
 		('PG', 'Post Graduate'),
 		('AD', 'Adult High School')
 	)
-	grade_level = models.CharField(max_length = 2, choices = GRADE_CHOICES)
+	grade_level = models.CharField(max_length = 2, choices = GRADE_CHOICES, blank=False, default='12')
 
 
 
