@@ -1,0 +1,36 @@
+{% extends "inventory/base.html" %}
+
+{% block content %}
+<div class="panel panel-default">
+	<div class="panel-heading"><h4>{{ user.full_name }}</h4></div>
+	<div class="panel-body">
+		<div class="col-md-6">
+			<dl class="dl-horizontal">
+				<dt>Student ID</dt>
+				<dd>{{ user.student_id }}</dd>
+				<dt>State ID</dt>
+				<dd>{{ user.state_id }}</dd>
+				<dt>Status</dt>
+				<dd>{{ user.get_status_display }}</dd>
+			</dl>
+		</div>
+		<div class="col-md-6">
+			<dl class="dl-horizontal">
+				<dt>School</dt>
+				<dd>{{ user.get_school_display }}</dd>
+				<dt>Grade Level</dt>
+				<dd>{{ user.get_grade_level_display }}</dd>
+				<dt>Gender</dt>
+				<dd>{{ user.get_gender_display }}</dd>
+			</dl>
+		</div>
+		<div class="col-lg">
+			<div class="btn-group" role="group" aria-label="...">
+				<a type="button" class="btn btn-default" href="{% url 'inventory:editStudent' user.student_id %}">Edit</a>
+				<a type="button" class="btn btn-default">Assign</a>
+				<a type="button" class="btn btn-default">Remove</a>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}

@@ -3,7 +3,8 @@ from . import views
 
 urlpatterns = [
 	url(r'^$', views.index, name='index'),
+	url(r'^show/(?P<student_id>[0-9]+)/$', views.showStudent, name='showStudent'),
+	url(r'^edit/(?P<student_id>[0-9]+)/$', views.editStudent, name='editStudent'),
 	url(r'^message/$', views.message, name='message'),
-	url(r'^userSearchForm/$', views.userSearchForm, name='userSearchForm'),
-	url(r'^userSearch/$', views.userSearch, name='userSearch'),
+	url(r'^userSearch/$', views.studentSearch, name='studentSearch'),
 ]

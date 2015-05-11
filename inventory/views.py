@@ -6,6 +6,7 @@ import requests, json
 import xml.etree.ElementTree as ET
 from django.db.models import Q
 from .models import Student
+from django.shortcuts import get_object_or_404
 
 def index(request):
 	return render(request, 'inventory/index.html')
@@ -21,24 +22,14 @@ def message(request):
 def userSearchForm(request):
 	return render(request, 'inventory/userSearchForm.html')
 
-def newUserSearch(request):
-	
-	query = request.POST.get('search', 0)
-	if query == 0:
-		return render(request, 'inventory/userSearchForm.html')
-	else:
-		jss_url = "http://jss-client.keansburg.k12.nj.us:8080/JSSResource"
-		headers = {'accept': 'application/json'}
-		r = requests.get(jss_url + "/ldapservers/id/1/user/" + query, auth=('checkin','checkin'), headers=headers)
-		data = r.json()
-		data = data['ldap_users']
-		if len(data) == 0:
-			messages.error(request, "No Users Found!")
-			return render(request, 'inventory/userSearchForm.html')
-		else:
-			return render(request, 'inventory/userSearchForm.html', {'data': data, 'query': query })
+def showStudent(request, student_id):
+	user = get_object_or_404(Student, student_id=student_id)
+	return render(request, 'inventory/show.html', {'user': user})
 
-def userSearch(request):
+def editStudent(request, student_id):
+	return HttpResponse('GOTCHA!')
+
+def studentSearch(request):
 
 	query = request.POST.get('search', 0)
 	if query == 0:
