@@ -6,7 +6,8 @@ import requests, json
 import xml.etree.ElementTree as ET
 from django.db.models import Q
 from .models import Student
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
+from .forms import StudentForm
 
 def index(request):
 	return render(request, 'inventory/index.html')
@@ -27,7 +28,17 @@ def showStudent(request, student_id):
 	return render(request, 'inventory/show.html', {'user': user})
 
 def editStudent(request, student_id):
-	return HttpResponse('GOTCHA!')
+	student = get_object_or_404(Student, student_id=student_id)
+	if request.method == "POST":
+		form = StudentForm(request.POST, instance=student)
+		if form.is_valid():
+			student = form.save()
+			return redirect('inventory:showStudent', student.student_id)
+	form = StudentForm(instance=student)
+	return render(request, 'inventory/editStudent.html', {'form':form, 'user': student})
+
+def assignStudent(request, student_id):
+	return HttpResponse('Student Assignment')
 
 def studentSearch(request):
 
