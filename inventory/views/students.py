@@ -5,23 +5,12 @@ from django.core import serializers
 import requests, json
 import xml.etree.ElementTree as ET
 from django.db.models import Q
-from .models import Student
+from inventory.models import Student
 from django.shortcuts import get_object_or_404, redirect
-from .forms import StudentForm
+from inventory.forms import StudentForm
 
 def index(request):
 	return render(request, 'inventory/index.html')
-
-def message(request):
-	messages.error(request, "Exterminate!")
-	messages.info(request, "Timey Wimey")
-	messages.warning(request, "Why'd you go an do that!?")
-	messages.success(request, "Alon Zi!")
-	messages.debug(request, "The Doctor")
-	return render(request, 'inventory/message.html')
-
-def userSearchForm(request):
-	return render(request, 'inventory/userSearchForm.html')
 
 def showStudent(request, student_id):
 	user = get_object_or_404(Student, student_id=student_id)
@@ -37,8 +26,24 @@ def editStudent(request, student_id):
 	form = StudentForm(instance=student)
 	return render(request, 'inventory/editStudent.html', {'form':form, 'user': student})
 
-def assignStudent(request, student_id):
-	return HttpResponse('Student Assignment')
+def computerAssignSearch(request, student_id):
+	student = get_object_or_404(Student, student_id=student_id)
+	query = request.POST.get('search', 0)
+	if query == 0:
+		return render(request, 'inventory/computerAssignSearch.html', { 'student': student })
+	else:
+		query = "*" + query + "*"
+		jss_url = "http://jss-client.keansburg.k12.nj.us:8080/JSSResource"
+		headers = {'accept': 'application/json'}
+		r = requests.get(jss_url + "/computers/match/" + query, auth=('checkin','checkin'), headers=headers)
+		data = r.json()
+		data = data['computers']
+		if len(data) == 0:
+			messages.error(request, "No Computers Found!")
+			return render(request, 'inventry/compuerAssignSearch.html')
+		else:
+			return render(request, 'inventory/computerAssignSearch.html', {'data': data, 'query': query, 'student_id': student_id })
+
 
 def studentSearch(request):
 

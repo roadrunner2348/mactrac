@@ -1,0 +1,39 @@
+{% extends "inventory/base.html" %}
+
+{% block content %}
+<div class="container">
+	<h4>{{ program.name }}</h4>
+	<p>Total Students: {{ program.student_set.count}}</P>
+	<div class="col-md-6">	
+		<table class="table table-striped"</table>
+			<tr>
+				<th><input type="checkbox"></input></th>
+				<th>Full Name</th>
+				<th>Grade Level</th>
+			</tr>
+			{% for student in students %}
+			<tr>
+				<td><input id="{{ student.student_id }}" type="checkbox"></input>
+				<td><a href="{% url 'inventory:showStudent' student.student_id %}">{{ student.full_name }}</a></td>
+				<td>{{ student.grade_level }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+		<div class="pagination">
+    		<span class="step-links">
+        		{% if students.has_previous %}
+            		<a href="?page={{ students.previous_page_number }}">previous</a>
+        		{% endif %}
+
+       		 	<span class="current">
+            		Page {{ students.number }} of {{ students.paginator.num_pages }}.
+        		</span>
+
+        		{% if students.has_next %}
+           			<a href="?page={{ students.next_page_number }}">next</a>
+        		{% endif %}
+    		</span>
+		</div>
+	</div>
+</div>
+{% endblock content %}

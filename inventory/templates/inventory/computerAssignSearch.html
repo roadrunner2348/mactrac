@@ -1,0 +1,43 @@
+{% extends "inventory/base.html" %}
+
+{% block content %}
+<div class="panel panel-primary">
+	<div class="panel-heading">User Search</div>
+	<div class="panel-body">
+	<form action="{% url 'inventory:computerAssignSearch' student_id %}" method="post" class="form">
+	{% csrf_token %}
+		<div class="form-group">
+			<input type="text" class="form-control" name="search" id="search" placeholder="Search for computers by Asset Number, Serial Number, MAC Address, etc..." />
+		</div>
+		<input type="submit" class="btn btn-default form-control" value="Search" />
+	</form>
+</div>
+</div>
+{% if data %}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		Search Results for "{{ query }}"
+	</div>
+	<div class="panel-body">
+		<div class="table-responsive">
+		<table class="table table-striped">
+			<tr>
+				<th>Computer Name</th>
+				<th>Serial Number</th>
+				<th>MAC Address</th>
+				<th>Assigned User</th>
+			</tr>
+			{% for computer in data %}
+				<tr>
+					<td><a href="{% url 'inventory:assignConfirm' %}" class="">{{ computer.name }}</a></td>
+					<td>{{ computer.serial_number }}</td>
+					<td>{{ computer.mac_address }}</td>
+					<td>{{ computer.realname }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+		</div>
+	</div>
+</div>
+{% endif %}
+{% endblock content %}

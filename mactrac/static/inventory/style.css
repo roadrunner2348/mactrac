@@ -1,0 +1,18 @@
+.message-box {
+	padding: 10px;
+}
+.message-box.debug {
+	background-color: #337ab7;
+}
+.message-box.info {
+	background-color: #d9edf7;
+}
+.message-box.success {
+	background-color: #dff0d8;
+}
+.message-box.warning {
+	background-color: #fcf8e3;
+}
+.message-box.error {
+	background-color: #f2dede;
+}

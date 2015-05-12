@@ -24,6 +24,8 @@
 				<dd>{{ user.get_grade_level_display }}</dd>
 				<dt>Gender</dt>
 				<dd>{{ user.get_gender_display }}</dd>
+				<dt>Program</dt>
+				<dd>{{ user.program.name }}</dd>
 			</dl>
 		</div>
 		</div>
@@ -31,7 +33,7 @@
 		<div class="col-lg">
 			<div class="btn-group" role="group" aria-label="...">
 				<a type="button" class="btn btn-default" href="{% url 'inventory:editStudent' user.student_id %}">Edit</a>
-				<a type="button" class="btn btn-default" href="{% url 'inventory:assignStudent' user.student_id %}">Assign</a>
+				<a type="button" class="btn btn-default" href="#">Assign</a>
 				<a type="button" class="btn btn-default" href="{% url 'inventory:studentSearch' %}">Back to Search</a>
 
 			</div>

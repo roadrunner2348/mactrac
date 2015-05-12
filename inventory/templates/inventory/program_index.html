@@ -1,0 +1,21 @@
+{% extends "inventory/base.html" %}
+
+{% block content %}
+<div class="container">
+	<h4>Program Index</h4>
+	<table class="table table-striped">
+		<tr>
+			<th>Progam Name</th>
+			<th>Assigned Students</th>
+			<th>Assigned Devices</th>
+		</tr>
+		{% for program in program_list %}
+		<tr>
+			<td><a href="{% url 'inventory:program_show' program.id %}">{{ program.name }}</a></td>
+			<td>{{ program.student_set.count }}</td>
+			<td>{{ program.device_set.count }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+</div>
+{% endblock content %}

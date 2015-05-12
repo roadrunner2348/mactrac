@@ -2,6 +2,13 @@ from django.db import models
 from django.contrib import admin
 from datetime import datetime
 
+class Program(models.Model):
+	name = models.CharField(max_length=50)
+
+	def __unicode__(self):
+		return self.name
+
+
 class Student(models.Model):
 	first_name = models.CharField(max_length=50)
 	last_name = models.CharField(max_length=50)
@@ -57,6 +64,32 @@ class Student(models.Model):
 		('AD', 'Adult High School')
 	)
 	grade_level = models.CharField(max_length = 2, choices = GRADE_CHOICES, blank=False, default='12')
+	program = models.ForeignKey('Program', blank=False, null=False, on_delete='SET_DEFAULT', default='1')
+
+	def __unicode__(self):
+		return self.full_name
+
+class Status(models.Model):
+	name = models.CharField(max_length=30)
+
+	def __unicode__(self):
+		return self.name
+
+
+
+class Device(models.Model):
+	name = models.CharField(max_length=50)
+	serial_number = models.CharField(max_length=50)
+	mac_address = models.CharField(max_length=50)
+	model = models.CharField(max_length=100)
+
+	status = models.ForeignKey('Status', blank=True, null=True, on_delete=models.SET_NULL)
+	student = models.ForeignKey('Student', blank=True, null=True, on_delete=models.SET_NULL)
+	program = models.ForeignKey('Program', blank=True, null=True, on_delete=models.SET_NULL)
+
+	def __unicode__(self):
+		return self.name
+
 
 
 

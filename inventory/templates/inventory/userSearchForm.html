@@ -28,6 +28,7 @@
 				<th>Grade Level</th>
 				<th>Gender</th>
 				<th>School</th>
+				<th>Program</th>
 			</tr>
 			{% for user in data %}
 				<tr>
@@ -37,6 +38,7 @@
 					<td>{{ user.get_grade_level_display }}</td>
 					<td>{{ user.get_gender_display }}</td>
 					<td>{{ user.get_school_display }}</td>
+					<td>{{ user.program }}</td>
 				</tr>
 			{% endfor %}
 		</table>
