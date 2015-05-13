@@ -33,7 +33,7 @@
 		<div class="col-lg">
 			<div class="btn-group" role="group" aria-label="...">
 				<a type="button" class="btn btn-default" href="{% url 'inventory:editStudent' user.student_id %}">Edit</a>
-				<a type="button" class="btn btn-default" href="#">Assign</a>
+				<a type="button" class="btn btn-default" href="{% url 'inventory:device_search' user.student_id %}">Assign</a>
 				<a type="button" class="btn btn-default" href="{% url 'inventory:studentSearch' %}">Back to Search</a>
 
 			</div>

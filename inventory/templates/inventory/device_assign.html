@@ -1,0 +1,35 @@
+{% extends "inventory/base.html" %}
+
+{% block content %}
+<div class="panel panel-default">
+	<div class="panel-heading">Device Assignment for: {{ student.full_name }}</div>
+	<div class="panel-body">
+		<div class="col-md-6">
+			<dl class="dl-horizontal">
+				<dt>Student Name<dt>
+				<dd>{{ student.full_name }}</dd>
+				<dt>Device Name<dt>
+				<dd>{{ device.name }}</dd>
+				<dt>Serial Number<dt>
+				<dd>{{ device.serial_number }}</dd>
+			</dl>
+		</div>
+		<div class="col-md-6">
+			<form action="/students/{{ student.student_id }}/assign/{{ device.id }}/" method="post" class="form">
+				{% csrf_token %}
+				<input type="hidden" name="student" value="{{ student.student_id }}"></input>
+				<input type="hidden" name="device" value="{{ device.id }}"></input>
+				<div class="form-group">
+					<label class="label-control">Reason for Check In/Out</label>
+					<select class="form-control" name="status">
+						{% for option in status %}
+							<option value="{{ option.id }}">{{ option.name }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<button type="submit" class="btn btn-primary">Save</button>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock content %}
