@@ -3,7 +3,7 @@
 {% block content %}
 
 {% if student %}
-	<h3>Device for {{ student.full_name }}</h3>
+	<h3>Device Assignment for {{ student.full_name }}</h3>
 {% endif %}
 <div class="panel panel-primary">
 	<div class="panel-heading">Device Search</div>
@@ -45,7 +45,7 @@
 					{% endif %}
 					<td>{{ device.serial_number }}</td>
 					<td>{{ device.mac_address }}</td>
-					<td>{{ device.student }}</td>
+					<td><a href="{% url 'inventory:student_show' device.student.student_id %}">{{ device.student }}</a></td>
 					<td>{{ device.status }}</td>
 				</tr>
 			{% endfor %}

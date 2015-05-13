@@ -4,7 +4,7 @@
 <div class="panel panel-primary">
 	<div class="panel-heading">User Search</div>
 	<div class="panel-body">
-	<form action="{% url 'inventory:studentSearch' %}" method="post" class="form">
+	<form action="{% url 'inventory:student_search' %}" method="post" class="form">
 	{% csrf_token %}
 		<div class="form-group">
 			<input type="text" class="form-control" name="search" id="search" placeholder="Search for users by name" />
@@ -33,14 +33,14 @@
 			</tr>
 			{% for user in data %}
 				<tr {% if user.status == 'INACTIVE' %} class="danger" {% endif %}>
-					<td><a href="{% url 'inventory:showStudent' user.student_id %}" class="">{{ user.student_id }}</a></td>
+					<td><a href="{% url 'inventory:student_show' user.student_id %}" class="">{{ user.student_id }}</a></td>
 					<td>{{ user.first_name }}</td>
 					<td>{{ user.last_name }}</td>
 					<td>{{ user.get_grade_level_display }}</td>
 					<td>{{ user.get_gender_display }}</td>
 					<td>{{ user.get_school_display }}</td>
 					<td>{{ user.program }}</td>
-					<td><a href="#" class="btn btn-xs btn-primary">Check In/Out</a></td>
+					<td><a href="/students/{{ user.student_id }}/assign/" class="btn btn-xs btn-primary">Check In/Out</a></td>
 				</tr>
 			{% endfor %}
 		</table>

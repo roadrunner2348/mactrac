@@ -12,9 +12,9 @@ from inventory.forms import StudentForm
 def index(request):
 	return render(request, 'inventory/index.html')
 
-def showStudent(request, student_id):
+def student_show(request, student_id):
 	user = get_object_or_404(Student, student_id=student_id)
-	return render(request, 'inventory/show.html', {'user': user})
+	return render(request, 'inventory/student_show.html', {'user': user})
 
 def editStudent(request, student_id):
 	student = get_object_or_404(Student, student_id=student_id)
@@ -22,7 +22,7 @@ def editStudent(request, student_id):
 		form = StudentForm(request.POST, instance=student)
 		if form.is_valid():
 			student = form.save()
-			return redirect('inventory:showStudent', student.student_id)
+			return redirect('inventory:student_show', student.student_id)
 	form = StudentForm(instance=student)
 	return render(request, 'inventory/editStudent.html', {'form':form, 'user': student})
 
@@ -45,17 +45,17 @@ def computerAssignSearch(request, student_id):
 			return render(request, 'inventory/computerAssignSearch.html', {'data': data, 'query': query, 'student_id': student_id })
 
 
-def studentSearch(request):
+def student_search(request):
 
 	query = request.POST.get('search', 0)
 	if query == 0:
-		return render(request, 'inventory/userSearchForm.html')
+		return render(request, 'inventory/student_search.html')
 	else:
 		results = Student.objects.all().filter(
 			Q(first_name__icontains=query) |
 			Q(last_name__icontains=query))
 		if len(results) == 0:
 			messages.error(request, "No Users Found!")
-			return render(request, 'inventory/userSearchForm.html')
+			return render(request, 'inventory/student_search.html')
 		else:
-			return render(request, 'inventory/userSearchForm.html', {'data': results, 'query': query })
+			return render(request, 'inventory/student_search.html', {'data': results, 'query': query })
