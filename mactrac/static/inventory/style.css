@@ -16,3 +16,23 @@
 .message-box.error {
 	background-color: #f2dede;
 }
+body {
+	padding-top: 70px;
+}
+@media screen {
+	.label {
+		width: 3.00in;
+		height: 2.00in;
+		background-color: gray;
+	}
+}
+
+@media print {
+	html,body {
+		width: 3.00in;
+		height: 2.00in;
+	}
+	.btn-group{
+		display: hidden;
+	}
+}

@@ -44,7 +44,7 @@
 				</tr>
 				{% for device in user.device_set.all %}
 					<tr>
-						<td>{{ device.name }}</td>
+						<td><a href="{% url 'inventory:device_show' device.id %}">{{ device.name }}</a></td>
 						<td>{{ device.serial_number }}</td>
 						<td>{{ device.mac_address }}</td>
 						<td>{{ device.status }}</td>

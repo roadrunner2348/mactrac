@@ -5,7 +5,7 @@ from django.core import serializers
 import requests, json
 import xml.etree.ElementTree as ET
 from django.db.models import Q
-from inventory.models import Student
+from inventory.models import *
 from django.shortcuts import get_object_or_404, redirect
 from inventory.forms import StudentForm
 
@@ -48,14 +48,23 @@ def computerAssignSearch(request, student_id):
 def student_search(request):
 
 	query = request.POST.get('search', 0)
+	program_id = request.POST.get('program', 0)
+	grade_id = request.POST.get('grade', 0)
+	programs = Program.objects.all()
+	grades = Student._meta.get_field('grade_level').choices
 	if query == 0:
-		return render(request, 'inventory/student_search.html')
+		return render(request, 'inventory/student_search.html', {'grades': grades, 'programs': programs})
 	else:
 		results = Student.objects.all().filter(
 			Q(first_name__icontains=query) |
 			Q(last_name__icontains=query))
+		if program_id != '':
+			program = get_object_or_404(Program, pk=program_id)
+			results = results.filter(program=program)
+		if grade_id != '':
+			results = results.filter(grade_level=grade_id)
 		if len(results) == 0:
 			messages.error(request, "No Users Found!")
-			return render(request, 'inventory/student_search.html')
+			return render(request, 'inventory/student_search.html', {'grades': grades, 'programs': programs, 'program_id': program_id, 'grade_id': grade_id })
 		else:
-			return render(request, 'inventory/student_search.html', {'data': results, 'query': query })
+			return render(request, 'inventory/student_search.html', {'data': results, 'query': query, 'grades': grades, 'programs': programs, 'program_id': program_id, 'grade_id': grade_id })

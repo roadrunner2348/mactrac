@@ -11,6 +11,7 @@ urlpatterns = [
 	url(r'^programs/(?P<pk>[0-9]+)$', views.program_show, name='program_show'),
 	url(r'^devices/search/$', views.device_search, name='device_search'),
 	url(r'^devices/(?P<pk>[0-9]+)/$', views.device_show, name='device_show'),
+	url(r'^devices/(?P<pk>[0-9]+)/print/$', views.device_print, name='device_print'),
 	url(r'^students/(?P<student_id>\w+)/assign/$', views.device_search, name='device_search'),
 	url(r'^students/(?P<student_id>\w+)/assign/(?P<pk>\w+)/$', views.device_assign, name='device_assign'),
 

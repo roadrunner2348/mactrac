@@ -7,7 +7,25 @@
 	<form action="{% url 'inventory:student_search' %}" method="post" class="form">
 	{% csrf_token %}
 		<div class="form-group">
-			<input type="text" class="form-control" name="search" id="search" placeholder="Search for users by name" />
+			<input type="text" class="form-control" name="search" id="search" placeholder="Search for users by name" {% if query %} value="{{ query }}" {% endif %}/>
+		</div>
+		<div class="form-group">
+			<label class="label-control">Filter by Program</label>
+			<select class="form-control" name="program">
+				<option value="">All</option>
+				{% for program in programs %}
+				<option {% if program_id == program.id|escape %} selected="selected" {% endif %} value="{{ program.id }}">{{ program.name }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div class="form-group">
+			<label class="label-control">Filter by Grade Level</label>
+			<select class="form-control" name="grade">]
+				<option value="">All</option>
+				{% for grade in grades %}
+				<option {% if grade_id == grade.0 %} selected="selected" {% endif %} value="{{ grade.0 }}">{{ grade.1 }}</option>
+				{% endfor %}
+			</select>
 		</div>
 		<input type="submit" class="btn btn-default form-control" value="Search" />
 	</form>
@@ -40,7 +58,9 @@
 					<td>{{ user.get_gender_display }}</td>
 					<td>{{ user.get_school_display }}</td>
 					<td>{{ user.program }}</td>
-					<td><a href="/students/{{ user.student_id }}/assign/" class="btn btn-xs btn-primary">Check In/Out</a></td>
+					<td><a href="/students/{{ user.student_id }}/assign/" class="btn btn-xs btn-primary">{% if user.device_set.count == 0 %}Check Out Device{% else %}Check In Device{% endif %}</a></td>
+					
+
 				</tr>
 			{% endfor %}
 		</table>

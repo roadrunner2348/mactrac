@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Inventory</title>
+        {% load staticfiles %}
+
+          <!-- Custon CSS File -->
+          <link rel="stylesheet" href="{% static 'inventory/style.css' %}" />
+    </head>
+<body>
+	<div class="label">
+		<p>{{ device.name }}</p>
+		<p>{{ device.serial_number }}</p>
+		<p>{{ device.model }}</p>
+		<p>{{ device.student }}</p>
+</body>
+</html>

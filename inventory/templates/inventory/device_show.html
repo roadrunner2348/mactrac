@@ -1,0 +1,43 @@
+{% extends "inventory/base.html" %}
+
+{% block content %}
+<div class="panel panel-default">
+	<div class="panel-heading"><h4>{{ device.name }}</h4></div>
+	<div class="panel-body">
+	<div class="container-fluid">
+		<div class="row">
+		<div class="col-md-6">
+			<dl class="dl-horizontal">
+				<dt>Serial Number</dt>
+				<dd>{{ device.serial_number }}</dd>
+				<dt>Model</dt>
+				<dd>{{ device.model }}</dd>
+				<dt>MAC Address</dt>
+				<dd>{{ device.mac_address }}</dd>
+			</dl>
+		</div>
+		<div class="col-md-6">
+			<dl class="dl-horizontal">
+				<dt>Assigned Student</dt>
+				<dd><a href="{% url 'inventory:student_show' device.student.student_id %}">{{ device.student }}</a></dd>
+				<dt>Program</dt>
+				<dd>{% if device.program == 'None' %}<a href="{% url 'inventory:program_show' device.program.id %}">{% endif %}{{ device.program }}{% if device.program == 'None' %}</a>{% endif %}</dd>
+				<dt>Status</dt>
+				<dd>{{ device.status }}</dd>
+			</dl>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg">
+			<div class="btn-group" role="group" aria-label="...">
+				<a type="button" class="btn btn-default" href="#">Edit Device</a>
+				<a type="button" class="btn btn-default" href="{% url 'inventory:device_print' device.id %}">Print Device Label</a>
+				<a type="button" class="btn btn-default" href="{% url 'inventory:device_search' %}">Back to Search</a>
+
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+</div>
+{% endblock content %}

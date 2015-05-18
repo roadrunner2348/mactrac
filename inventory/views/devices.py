@@ -35,8 +35,6 @@ def device_search(request, student_id=0):
 				HttpResponse('option 4')
 				return render(request, 'inventory/device_search.html', {'data': results, 'query': query, 'student':student })
 
-def device_show(request, pk):
-	return HttpResponse(pk)
 
 def device_assign(request, student_id, pk):
 	status_id = request.POST.get('status', 0)
@@ -51,7 +49,15 @@ def device_assign(request, student_id, pk):
 		device.status = status
 		device.save()
 
-		return redirect('inventory:showStudent', student_id=student.student_id)
+		return redirect('inventory:student_show', student_id=student.student_id)
+
+def device_show(request, pk):
+	device = get_object_or_404(Device, pk=pk)
+	return render(request, 'inventory/device_show.html', {'device': device})
+
+def device_print(request, pk):
+	device = get_object_or_404(Device, pk=pk)
+	return render(request, 'inventory/device_print.html', {'device': device})
 
 
 

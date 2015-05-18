@@ -15,7 +15,7 @@ def program_index(request):
 
 def program_show(request, pk):
 	program = get_object_or_404(Program, pk=pk)
-	student_list = program.student_set.all()
+	student_list = program.student_set.all().order_by('grade_level', 'last_name', 'first_name')
 	paginator = Paginator(student_list, 20)
 
 	page = request.GET.get('page')
