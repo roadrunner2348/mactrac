@@ -1,0 +1,12 @@
+{% extends "inventory/base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+	<h1>Import Complete!</h1>
+	<ul class="group-list">
+		<li>Total Device in Group: {{ totalCount }}</li>
+		<li>Total Device Imported: {{ importCount }}</li>
+		<li>Devices already in Database: {{ existsCount }}</li>
+	</ul>
+</div>
+{% endblock content %}

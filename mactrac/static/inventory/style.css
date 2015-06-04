@@ -20,7 +20,7 @@ body {
 	padding-top: 70px;
 }
 @media screen {
-	.label{
+	.print-label{
 		display: none;
 	}
 	#barcode {
@@ -29,22 +29,38 @@ body {
 }
 
 @media print {
-	.label {
-		width: 3.00in;
-		height: 2.00in;
+	.print-label {
+		height:2.00in;
+		width:3.00in;
 		border: 0px;
-		font-size: 14px;
+		font-size: 16px;
+		display: block;
 	}
-	html,body {
+	
+	body {
 		width: 3.00in;
 		height: 2.00in;
 		padding: 0px;
 		margin: 5px;
+		position: absolute;
 	}
 	.btn-group{
 		display: none;
 	}
-	#barcode {
-		margin: 0 auto;
+	#serial_number {
+		bottom: 5px;
+		right: 10px;
+		position: absolute;
+
+	}
+	#mac_address {
+		bottom: 50px;
+		right: 10px;
+		position: absolute;
+
+	}
+	.label span {
+		display: block;
+		text-align: left;
 	}
 }

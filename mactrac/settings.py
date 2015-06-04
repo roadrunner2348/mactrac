@@ -107,3 +107,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = "/var/www/mactrac/mactrac/static/"
+#JSS_URL = ''
+JSS_URL = 'http://jss-client.keansburg.k12.nj.us:8080/JSSResource'
+JSS_USER = 'checkin'
+JSS_PASSWORD = 'checkin'

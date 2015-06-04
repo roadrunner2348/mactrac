@@ -45,7 +45,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Devices <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="{% url 'inventory:device_search' %}">Device Search</a></li>
-                  <li><a href="#">Import Devices</a></li>
+                  <li><a href="{% url 'inventory:device_import_select' %}">Import Devices</a></li>
                 </ul>
               </li>
               <li class="dropdown">
@@ -68,10 +68,8 @@
         {% endfor %}
       {% endif %}
     </div>
-    <div class="container-fluid">
     	{% block content %}
     	{% endblock content %}
-    </div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

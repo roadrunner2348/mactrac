@@ -1,0 +1,15 @@
+{% extends "inventory/base.html" %}
+
+{% block content %}
+{% if data != 0 %}
+<div class="container">
+	<h3>Device Import</h3>
+	<p>Select the JSS Search Group you would like to import. The Computer seach MUST display the following fields: Computer Name, Serial Number, Wifi Mac Address and Model!</p>
+	<ul class="list-group">
+		{% for group in data %}
+			<li class="list-group-item"><a href="{% url 'inventory:device_import' group.id %}">{{ group.name }}</a></li>
+		{% endfor %}
+	</ul>
+</div>
+{% endif %}
+{% endblock content %}

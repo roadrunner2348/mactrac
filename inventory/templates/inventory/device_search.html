@@ -45,7 +45,11 @@
 					{% endif %}
 					<td>{{ device.serial_number }}</td>
 					<td>{{ device.mac_address }}</td>
+					{% if device.student %}
 					<td><a href="{% url 'inventory:student_show' device.student.student_id %}">{{ device.student }}</a></td>
+					{% else %}
+					<td>Unassigned</td>
+					{% endif %}
 					<td>{{ device.status }}</td>
 				</tr>
 			{% endfor %}
