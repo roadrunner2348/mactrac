@@ -7,36 +7,12 @@ from django.conf import settings
 import requests, json
 
 def device_search(request, student_id=0):
-	query = request.POST.get('search', 0)
-	if query == 0:
-		if student_id == 0:
-			return render(request, 'inventory/device_search.html')
-		else:
-			student = get_object_or_404(Student, student_id=student_id)
-			return render(request, 'inventory/device_search.html', {'student':student})
+	devices = Device.objects.all()
+	if student_id == 0:
+		return render(request, 'inventory/device_search.html', { 'devices':devices })
 	else:
-		results = Device.objects.all().filter(
-			Q(name__icontains=query) |
-			Q(serial_number__icontains=query) |
-			Q(mac_address__icontains=query))
-		if len(results) == 0:
-			messages.error(request, "No Devices Found!")
-			if student_id == 0:
-				HttpResponse('option 1')
-				return render(request, 'inventory/device_search.html')
-			else:
-				student = get_object_or_404(Student, student_id=student_id)
-				HttpResponse('option 2')
-				return render(request, 'inventory/device_search.html', {'student':student})
-		else:
-			if student_id == 0:
-				HttpResponse('option 3')
-				return render(request, 'inventory/device_search.html', {'data': results, 'query': query })
-			else:
-				student = get_object_or_404(Student, student_id=student_id)
-				HttpResponse('option 4')
-				return render(request, 'inventory/device_search.html', {'data': results, 'query': query, 'student':student })
-
+		student = get_object_or_404(Student, student_id=student_id)
+		return render(request, 'inventory/device_search.html', { 'devices':devices, 'student':student })
 
 def device_assign(request, student_id, pk):
 	status_id = request.POST.get('status', 0)
