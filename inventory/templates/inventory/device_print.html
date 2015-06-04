@@ -6,12 +6,27 @@
 
           <!-- Custon CSS File -->
           <link rel="stylesheet" href="{% static 'inventory/style.css' %}" />
+          
+
     </head>
 <body>
 	<div class="label">
-		<p>{{ device.name }}</p>
-		<p>{{ device.serial_number }}</p>
-		<p>{{ device.model }}</p>
-		<p>{{ device.student }}</p>
+    Keansburg School District<br>
+		{{ device.name }}<br>
+		{{ device.model }}<br>
+		{{ device.student }}<nr>
+    <div id="barcode"></div>
+  </div>
+<!-- Jquery for barcode Generator -->
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<!-- Barcode Generator Script -->
+<script src="{% static 'inventory/jquery-barcode.min.js' %}"></script>
+<script>
+$(document).ready(function() {
+
+  $("#barcode").barcode("{{ device.serial_number}}", "code39", {barHeight:20, fontSize:14});
+
+});
+</script>
 </body>
 </html>

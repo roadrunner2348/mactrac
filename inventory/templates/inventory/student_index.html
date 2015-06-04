@@ -1,0 +1,35 @@
+{% extends "inventory/base.html" %}
+
+{% block content %}
+<h3>Student List</h3>
+<div class="table-responsive">
+	<table class="table table-striped display">
+		<thead>
+			<tr>
+				<th>Student ID</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Grade Level</th>
+				<th>Gender</th>
+				<th>School</th>
+				<th>Program</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for student in students %}
+				<tr {% if student.status == 'INACTIVE' %} class="danger" {% endif %}>
+					<td><a href="{% url 'inventory:student_show' student.student_id %}" class="">{{ student.student_id }}</a></td>
+					<td>{{ student.first_name }}</td>
+					<td>{{ student.last_name }}</td>
+					<td>{{ student.get_grade_level_display }}</td>
+					<td>{{ student.get_gender_display }}</td>
+					<td>{{ student.get_school_display }}</td>
+					<td>{{ student.program }}</td>
+					<td><a href="/students/{{ student.student_id }}/assign/" class="btn btn-xs btn-primary">{% if student.device_set.count == 0 %}Check Out Device{% else %}Check In Device{% endif %}</a></td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock content %}

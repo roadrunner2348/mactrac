@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
 
-	url(r'^$', views.index, name='index'),
+	url(r'^students/$', views.student_index, name='student_index'),
 	url(r'^students/(?P<student_id>[0-9]+)/$', views.student_show, name='student_show'),
 	url(r'^edit/(?P<student_id>[0-9]+)/$', views.editStudent, name='editStudent'),
 	url(r'^students/search/$', views.student_search, name='student_search'),

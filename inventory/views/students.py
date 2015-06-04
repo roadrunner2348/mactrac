@@ -8,9 +8,12 @@ from django.db.models import Q
 from inventory.models import *
 from django.shortcuts import get_object_or_404, redirect
 from inventory.forms import StudentForm
+from django.contrib.auth.decorators import login_required
 
-def index(request):
-	return render(request, 'inventory/index.html')
+
+def student_index(request):
+	students = Student.objects.all();
+	return render(request, 'inventory/student_index.html', {'students': students})
 
 def student_show(request, student_id):
 	user = get_object_or_404(Student, student_id=student_id)

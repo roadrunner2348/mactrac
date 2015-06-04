@@ -1,45 +1,9 @@
 {% extends "inventory/base.html" %}
 
 {% block content %}
-<div class="panel panel-primary">
-	<div class="panel-heading">User Search</div>
-	<div class="panel-body">
-	<form action="{% url 'inventory:student_search' %}" method="post" class="form">
-	{% csrf_token %}
-		<div class="form-group">
-			<input type="text" class="form-control" name="search" id="search" placeholder="Search for users by name" {% if query %} value="{{ query }}" {% endif %}/>
-		</div>
-		<div class="form-group">
-			<label class="label-control">Filter by Program</label>
-			<select class="form-control" name="program">
-				<option value="">All</option>
-				{% for program in programs %}
-				<option {% if program_id == program.id|escape %} selected="selected" {% endif %} value="{{ program.id }}">{{ program.name }}</option>
-				{% endfor %}
-			</select>
-		</div>
-		<div class="form-group">
-			<label class="label-control">Filter by Grade Level</label>
-			<select class="form-control" name="grade">]
-				<option value="">All</option>
-				{% for grade in grades %}
-				<option {% if grade_id == grade.0 %} selected="selected" {% endif %} value="{{ grade.0 }}">{{ grade.1 }}</option>
-				{% endfor %}
-			</select>
-		</div>
-		<input type="submit" class="btn btn-default form-control" value="Search" />
-	</form>
-</div>
-</div>
-{% if data %}
-<div class="panel panel-default">
-	<div class="panel-heading">
-		Search Results for "{{ query }}"
-	</div>
-	<div class="panel-body">
-		<div class="table-responsive">
-		<table class="table table-striped display">
-			<thead>
+
+	<table class="tables display">
+		<thead>
 			<tr>
 				<th>Student ID</th>
 				<th>First Name</th>
@@ -65,9 +29,9 @@
 				</tr>
 			{% endfor %}
 		</tbody>
-		</table>
-		</div>
-	</div>
-</div>
-{% endif %}
+	</table>
+	
+
+
+
 {% endblock content %}

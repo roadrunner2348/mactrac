@@ -20,19 +20,31 @@ body {
 	padding-top: 70px;
 }
 @media screen {
-	.label {
-		width: 3.00in;
-		height: 2.00in;
-		background-color: gray;
+	.label{
+		display: none;
+	}
+	#barcode {
+		display: none;
 	}
 }
 
 @media print {
+	.label {
+		width: 3.00in;
+		height: 2.00in;
+		border: 0px;
+		font-size: 14px;
+	}
 	html,body {
 		width: 3.00in;
 		height: 2.00in;
+		padding: 0px;
+		margin: 5px;
 	}
 	.btn-group{
-		display: hidden;
+		display: none;
+	}
+	#barcode {
+		margin: 0 auto;
 	}
 }

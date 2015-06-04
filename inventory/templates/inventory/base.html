@@ -12,7 +12,7 @@
 		      <!-- Optional theme -->
 		      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
           <!--- DataTables CSS File -->
-          <link rel="stylesheet" href="http://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" />
+          <link rel="stylesheet" href="http://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" />
           <!-- Custom CSS File -->
           <link rel="stylesheet" href="{% static 'inventory/style.css' %}" />
     </head>
@@ -28,7 +28,7 @@
         				<span class="icon-bar"></span>
         				<span class="icon-bar"></span>
       				</button>
-      				<a class="navbar-brand" href="{% url 'inventory:index' %}">
+      				<a class="navbar-brand" href="{% url 'inventory:student_index' %}">
         				<img alt="Brand" width="17px" height="20px" src="http://www.keansburg.k12.nj.us/cms/lib02/NJ01001933/Centricity/Domain/777/New%20Titan%20KT.png">
       				</a>
     			</div>
@@ -37,7 +37,7 @@
     					<li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Students <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="{% url 'inventory:student_search' %}">Student Search</a></li>
+                  <li><a href="{% url 'inventory:student_index' %}">All Students</a></li>
                   <li><a href="#">New Student</a></li>
                 </ul>
               </li>
@@ -68,7 +68,7 @@
         {% endfor %}
       {% endif %}
     </div>
-    <div class="container">
+    <div class="container-fluid">
     	{% block content %}
     	{% endblock content %}
     </div>
@@ -78,7 +78,11 @@
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <!-- Datatable jQuery Plugin -->
-    <script src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.js"></script>
+    <!-- Datatables BootStrap Inegration -->
+    <script src="http://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+       <!-- Barcode Generator for print views -->
+    <script src="{% static 'inventory/jquery-barcode.min.js' %}"></script>
     <script src="{% static 'inventory/tables.js' %}"></script>
     </body>
 </html>
