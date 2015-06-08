@@ -13,4 +13,3 @@ class StudentEditForm(ModelForm):
 		model = Student
 		fields = ['school', 'grade_level', 'gender', 'status', 'program']
 		program = forms.ModelChoiceField(queryset=Program.objects.all(), empty_label=None)
-		
