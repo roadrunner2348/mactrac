@@ -7,27 +7,40 @@ import xml.etree.ElementTree as ET
 from django.db.models import Q
 from inventory.models import *
 from django.shortcuts import get_object_or_404, redirect
-from inventory.forms import StudentForm
+from inventory.forms import *
 from django.contrib.auth.decorators import login_required
 
 
 def student_index(request):
-	students = Student.objects.all();
+	students = Student.objects.all()
 	return render(request, 'inventory/student_index.html', {'students': students})
 
 def student_show(request, student_id):
 	user = get_object_or_404(Student, student_id=student_id)
 	return render(request, 'inventory/student_show.html', {'user': user})
 
-def editStudent(request, student_id):
-	student = get_object_or_404(Student, student_id=student_id)
+def student_create(request):
 	if request.method == "POST":
-		form = StudentForm(request.POST, instance=student)
+		form = StudentCreateForm(request.POST)
 		if form.is_valid():
 			student = form.save()
 			return redirect('inventory:student_show', student.student_id)
-	form = StudentForm(instance=student)
-	return render(request, 'inventory/editStudent.html', {'form':form, 'user': student})
+		else:
+			return HttpResponse('You dun Wrong!')
+	form = StudentCreateForm()
+	title = "New Student"
+	return render(request, 'inventory/student_edit.html', {'form':form, 'title':title })
+
+def student_edit(request, student_id):
+	student = get_object_or_404(Student, student_id=student_id)
+	if request.method == "POST":
+		form = StudentEditForm(request.POST, instance=student)
+		if form.is_valid():
+			student = form.save()
+			return redirect('inventory:student_show', student.student_id)
+	form = StudentEditForm(instance=student)
+	title = "Edit: " + student.full_name
+	return render(request, 'inventory/student_edit.html', {'form':form, 'user': student, 'title':title })
 
 def computerAssignSearch(request, student_id):
 	student = get_object_or_404(Student, student_id=student_id)

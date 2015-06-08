@@ -5,19 +5,11 @@
 {% load widget_tweaks %}
 
 <div class="panel panel-default">
-	<div class="panel-heading"><h4>{{ user.full_name }}</h4></div>
+	<div class="panel-heading"><h4>{{ title }}</h4></div>
 	<div class="panel-body">
 		<div class="container-fluid">
 		<div class="row">
-		<div class="col-md-6">
-			<dl class="dl-horizontal">
-				<dt>Student ID</dt>
-				<dd>{{ user.student_id }}</dd>
-				<dt>State ID</dt>
-				<dd>{{ user.state_id }}</dd>
-			</dl>
-		</div>
-		<div class="col-md-6">
+		<div class="col-md-6 col-lg">
 			<form method="post" action="#" class="form-horizontal">
 				{% csrf_token %}
 				{% for field in form %}
@@ -29,7 +21,7 @@
 				</div>
 				{% endfor %}
 				<button type="submit" class="save btn btn-default">Save</button>
-				<a href="{% url 'inventory:student_show' user.student_id %}" class="btn btn-default">Cancel</a>
+				<a href="{% if student %}{% url 'inventory:student_show' user.student_id %}{% else %}{% url 'inventory:student_index' %}{% endif %}" class="btn btn-default">Cancel</a>
 			</form>
 		</div>
 		</div>
