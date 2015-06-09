@@ -39,8 +39,8 @@ class Student(models.Model):
 	@property
 	def full_name(self):
 		return self.first_name + " " + self.last_name
-	student_id = models.PositiveIntegerField(unique = True)
-	state_id = models.PositiveIntegerField()
+	student_id = models.CharField(max_length=50, blank=False, unique = True)
+	state_id = models.CharField(max_length=50, blank=False, unique = True)
 	GRADE_CHOICES = (
 		('3H', 'Half-day Pre-School (3 Years Old)'),
 		('3F', 'Full-day Pre-School (3 Years Old)'),

@@ -1,7 +1,7 @@
 {% extends "inventory/base.html" %}
 
 {% block content %}
-
+<div class="container">
 {% if student %}
 	<h3>Device Assignment for {{ student.full_name }}</h3>
 {% endif %}
@@ -11,15 +11,15 @@
 	</div>
 	<div class="panel-body">
 	<div class="table">
-		<table class="table table-striped display">
+		<table class="table table-striped display no-wrap" width = "100%">
 			<thead>
 			<tr>
-				<th>Device Name</th>
-				<th>Model</th>
-				<th>Serial Number</th>
-				<th>MAC Address</th>
-				<th>Assigned User</th>
-				<th>Status</th>
+				<th class="mobile-p tablet desktop">Device Name</th>
+				<th class="tablet desktop">Model</th>
+				<th class="tablet desktop">Serial Number</th>
+				<th class="tablet desktop">MAC Address</th>
+				<th class="tablet desktop">Assigned User</th>
+				<th class="tablet desktop">Status</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -45,5 +45,6 @@
 		</table>
 	</div>
 	</div>
+</div>
 </div>
 {% endblock content %}

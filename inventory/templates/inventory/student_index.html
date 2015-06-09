@@ -1,29 +1,44 @@
 {% extends "inventory/base.html" %}
 
 {% block content %}
+{% load widget_tweaks %}
 <div class="container">
 <h3>Student List</h3>
 <p>Total Students: {{ students.count }}</p>
-<div class="table">
-	<table class="table table-striped display">
+<div class="panel panel-default" id="studentFilterContainer">
+	<div class="panel-heading">
+		Filter by...
+	</div>
+	<div class="panel-body">
+	<form method="post" action="#" class="form-inline">
+		{% for field in form %}
+		<div class="form-group">
+			<label class="control-label">{{ field.label }}</label>
+			{{ field|add_class:"form-control" }}
+		</div>
+		{% endfor %}
+		<div class="form-group">
+			<button type="submit" class="save btn btn-primary form-control">Go</button>
+		</div>
+	</form>
+</div>
+</div>
+
+	<table class="table table-striped display no-wrap" width="100%">
 		<thead>
 			<tr>
-				<th>Student ID</th>
-				<th>First Name</th>
-				<th>Last Name</th>
-				<th>Grade Level</th>
-				<th>Gender</th>
-				<th>School</th>
-				<th>Program</th>
-				<th>Actions</th>
+				<th class="mobile-p tablet desktop">Student Name</th>
+				<th class="tablet desktop">Grade</th>
+				<th class="tablet desktop">Gender</th>
+				<th class="tablet desktop">School</th>
+				<th class="tablet desktop">Program</th>
+				<th class="tablet desktop">Actions</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for student in students %}
 				<tr {% if student.status == 'INACTIVE' %} class="danger" {% endif %}>
-					<td><a href="{% url 'inventory:student_show' student.student_id %}" class="">{{ student.student_id }}</a></td>
-					<td>{{ student.first_name }}</td>
-					<td>{{ student.last_name }}</td>
+					<td><a href="{% url 'inventory:student_show' student.student_id %}" class="">{{ student.full_name }}</a></td>
 					<td>{{ student.get_grade_level_display }}</td>
 					<td>{{ student.get_gender_display }}</td>
 					<td>{{ student.get_school_display }}</td>
@@ -33,6 +48,5 @@
 			{% endfor %}
 		</tbody>
 	</table>
-</div>
 </div>
 {% endblock content %}

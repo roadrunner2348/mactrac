@@ -13,22 +13,23 @@ from django.contrib.auth.decorators import login_required
 
 def student_index(request):
 	students = Student.objects.all()
-	return render(request, 'inventory/student_index.html', {'students': students})
+	form = StudentFilterForm()
+	return render(request, 'inventory/student_index.html', {'students': students, 'form': form })
 
 def student_show(request, student_id):
 	user = get_object_or_404(Student, student_id=student_id)
 	return render(request, 'inventory/student_show.html', {'user': user})
 
 def student_create(request):
+	title = "New Student"
 	if request.method == "POST":
 		form = StudentCreateForm(request.POST)
 		if form.is_valid():
 			student = form.save()
 			return redirect('inventory:student_show', student.student_id)
 		else:
-			return HttpResponse('You dun Wrong!')
+			return render(request, 'inventory/student_edit.html', {'form':form, 'title':title })
 	form = StudentCreateForm()
-	title = "New Student"
 	return render(request, 'inventory/student_edit.html', {'form':form, 'title':title })
 
 def student_edit(request, student_id):
