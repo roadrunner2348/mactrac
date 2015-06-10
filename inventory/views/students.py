@@ -12,9 +12,23 @@ from django.contrib.auth.decorators import login_required
 
 
 def student_index(request):
-	students = Student.objects.all()
-	form = StudentFilterForm()
-	return render(request, 'inventory/student_index.html', {'students': students, 'form': form })
+	if request.method == "POST":
+		form = StudentFilterForm(request.POST)
+		grade = request.POST['grade_level']
+		school = request.POST['school']
+		program = request.POST['program']
+		filtered_students = Student.objects.all()
+		if grade != "ALL":
+			filtered_students = filtered_students.filter(grade_level=grade)
+		if school != "ALL":
+			filtered_students = filtered_students.filter(school=school)
+		if program != "":
+			filtered_students = filtered_students.filter(program__id__exact=program)
+		return render(request, 'inventory/student_index.html', {'students': filtered_students, 'form': form })
+	else:
+		students = Student.objects.all()
+		form = StudentFilterForm()
+		return render(request, 'inventory/student_index.html', {'students': students, 'form': form })
 
 def student_show(request, student_id):
 	user = get_object_or_404(Student, student_id=student_id)

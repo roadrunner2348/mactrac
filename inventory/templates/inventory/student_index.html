@@ -10,7 +10,8 @@
 		Filter by...
 	</div>
 	<div class="panel-body">
-	<form method="post" action="#" class="form-inline">
+	<form method="post" action="{% url 'inventory:student_index' %}" class="form-inline">
+		{% csrf_token %}
 		{% for field in form %}
 		<div class="form-group">
 			<label class="control-label">{{ field.label }}</label>
@@ -27,7 +28,7 @@
 	<table class="table table-striped display no-wrap" width="100%">
 		<thead>
 			<tr>
-				<th class="mobile-p tablet desktop">Student Name</th>
+				<th class="mobile tablet desktop">Student Name</th>
 				<th class="tablet desktop">Grade</th>
 				<th class="tablet desktop">Gender</th>
 				<th class="tablet desktop">School</th>

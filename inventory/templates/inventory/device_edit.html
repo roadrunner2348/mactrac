@@ -1,0 +1,43 @@
+{% extends "inventory/base.html" %}
+
+{% block content %}
+
+{% load widget_tweaks %}
+<div class="container">
+<div class="panel panel-default">
+	<div class="panel-heading"><h4>Edit Device: {{ device.name }}</h4></div>
+	<div class="panel-body">
+		<div class="container-fluid">
+		<div class="row">
+		<div class="col-md-12 col-lg">
+			<form method="post" action="#" class="form-horizontal">
+				{% csrf_token %}
+				{% for field in form %}
+				<div class="form-group{% if field.errors %} has-error{% endif %}">
+					<label class="col-md-2 col-sm-2 control-label">{{ field.label }}</label>
+					<div class="col-md-8 col-sm-8">
+						{{ field|add_class:"form-control" }}
+					</div>
+					{% if field.errors %}
+						{% for error in field.errors %}
+							<label class="col-md-2 control-label">{{ error|escape }}</label>
+						{% endfor %}
+					{% endif %}
+				</div>
+				{% endfor %}
+				<div class="form-group">
+					<button type="submit" class="save btn btn-primary form-control">Save</button>
+				</div>
+				<div class="form-group">
+					<a href="{% url 'inventory:device_show' device.id %}" class="btn btn-danger form-control">Cancel</a>
+				</div>
+			</form>
+		</div>
+		</div>
+		
+		</div>
+	</div>
+</div>
+</div>
+
+{% endblock content %}

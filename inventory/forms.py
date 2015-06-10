@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import Student, Program
+from .models import Student, Program, Device
 
 class StudentCreateForm(ModelForm):
 	class Meta:
@@ -16,6 +16,7 @@ class StudentEditForm(ModelForm):
 
 class StudentFilterForm(forms.Form):
 	GRADE_CHOICES = (
+		('ALL', 'All'),
 		('3H', 'Half-day Pre-School (3 Years Old)'),
 		('3F', 'Full-day Pre-School (3 Years Old)'),
 		('4H', 'Half-day Pre-School (4 Years Old)'),
@@ -39,6 +40,7 @@ class StudentFilterForm(forms.Form):
 	)
 	grade_level = forms.ChoiceField(label="Grade", choices=GRADE_CHOICES)
 	SCHOOL_CHOICES = (
+			('ALL', 'All'),
 			('KHS', 'Keansburg High School'),
 			('BMS', 'Bolger Middle School'),
 			('CES', 'Caruso Elementary School'),
@@ -51,4 +53,10 @@ class StudentFilterForm(forms.Form):
 			('SS', 'Summer School KHS')
 		)
 	school = forms.ChoiceField(label="School", choices=SCHOOL_CHOICES)
-	program = forms.ModelChoiceField(queryset=Program.objects.all(), empty_label=None)
+	program = forms.ModelChoiceField(queryset=Program.objects.all(), empty_label="All")
+
+	class DeviceEditForm(ModelForm):
+		class Meta:
+			model = Device
+			fields = ['program']
+			program = forms.ModelChoiceField(queryset=Program.objects.all(), empty_label=None)
