@@ -1,5 +1,7 @@
 $(document).ready(function() {
-	$('table.display').dataTable();
+	$('table.display').dataTable({
+		responsive: true
+	});
 	$('.barcode').each(function( index ) {
 		var barcode = "";
 		barcode = $(this).text();
