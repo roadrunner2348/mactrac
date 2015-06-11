@@ -63,4 +63,11 @@ body {
 		display: block;
 		text-align: left;
 	}
+	#logo {
+		height: 50px;
+		width: 42px;
+		position: absolute;
+		bottom: 5px;
+		left: 5px;
+	}
 }
