@@ -19,6 +19,12 @@
 body {
 	padding-top: 70px;
 }
+
+@page {
+	size: 3in 2in;
+	margin: 0;
+}
+
 @media screen {
 	.print-label{
 		display: none;
