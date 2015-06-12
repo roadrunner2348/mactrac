@@ -67,9 +67,13 @@ class DeviceModelChoiceField(ModelChoiceField):
 	def label_from_instance(self, obj):
 		return obj.name + " - " + obj.serial_number
 
-class AssignDeviceForm(forms.Form):
-	device = DeviceModelChoiceField(queryset=Device.objects.all(), empty_label="None")
-	device_status = forms.ModelChoiceField(queryset=Status.objects.all(), empty_label="None")
+class CheckOutForm(forms.Form):
+	device = DeviceModelChoiceField(queryset=Device.objects.all(), empty_label=None)
+	device_status = forms.ModelChoiceField(queryset=Status.objects.all(), empty_label=None)
+
+class CheckInForm(forms.Form):
+	status = forms.ModelChoiceField(queryset=Status.objects.filter(checkedout=True))
+	unassign = forms.BooleanField(initial=False)
 
 class StatusForm(ModelForm):
 	class Meta:
