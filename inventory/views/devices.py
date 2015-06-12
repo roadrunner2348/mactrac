@@ -26,7 +26,7 @@ def device_edit(request, pk):
 	return render(request, 'inventory/device_edit.html', { 'form':form, 'device':device })
 
 def device_assign(request):
-	status_id = request.POST.get('status', 0)
+	status_id = request.POST.get('device_status', 0)
 	device_id = request.POST.get('device', 0)
 	student_id = request.POST.get('student_id', 0)
 	device = get_object_or_404(Device, pk=device_id)
