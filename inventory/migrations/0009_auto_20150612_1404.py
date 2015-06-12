@@ -7,6 +7,8 @@ def load_defaults(apps, schema_editor):
     Status = apps.get_model("inventory", "Status")
     default_status = Status(id=1,name="Active", checkedout=True)
     default_status.save()
+    default_status = Status(id=2,name="Retired", checkedout=False)
+    default_status.save()
 
 class Migration(migrations.Migration):
 
@@ -15,5 +17,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-    	migrations.RunPython(load_defaults)
+    	migrations.RunPython(load_defaults, reverse_code=migrations.RunPython.noop)
     ]
