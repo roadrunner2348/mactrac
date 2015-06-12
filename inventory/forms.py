@@ -1,6 +1,6 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, ModelChoiceField
 from django import forms
-from .models import Student, Program, Device
+from .models import Student, Program, Device, Status
 
 class StudentCreateForm(ModelForm):
 	class Meta:
@@ -11,8 +11,10 @@ class StudentCreateForm(ModelForm):
 class StudentEditForm(ModelForm):
 	class Meta:
 		model = Student
-		fields = ['school', 'grade_level', 'gender', 'status', 'program']
 		program = forms.ModelChoiceField(queryset=Program.objects.all(), empty_label=None)
+		fields = ['school', 'grade_level', 'gender', 'status', 'program']
+
+
 
 class StudentFilterForm(forms.Form):
 	GRADE_CHOICES = (
@@ -55,8 +57,21 @@ class StudentFilterForm(forms.Form):
 	school = forms.ChoiceField(label="School", choices=SCHOOL_CHOICES)
 	program = forms.ModelChoiceField(queryset=Program.objects.all(), empty_label="All")
 
-	class DeviceEditForm(ModelForm):
-		class Meta:
-			model = Device
-			fields = ['program']
-			program = forms.ModelChoiceField(queryset=Program.objects.all(), empty_label=None)
+class DeviceEditForm(ModelForm):
+	class Meta:
+		model = Device
+		fields = ['program', 'student']
+		program = forms.ModelChoiceField(queryset=Program.objects.all(), empty_label=None)
+
+class DeviceModelChoiceField(ModelChoiceField):
+	def label_from_instance(self, obj):
+		return obj.name + " - " + obj.serial_number
+
+class AssignDeviceForm(forms.Form):
+	device = DeviceModelChoiceField(queryset=Device.objects.all(), empty_label="None")
+	device_status = forms.ModelChoiceField(queryset=Status.objects.all(), empty_label="None")
+
+class StatusForm(ModelForm):
+	class Meta:
+		model = Status
+		fields = ['name', 'checkedout']

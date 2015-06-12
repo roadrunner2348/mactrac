@@ -1,6 +1,9 @@
 {% extends "inventory/base.html" %}
 
+{% load widget_tweaks %}
+
 {% block content %}
+<div class="container">
 <div class="panel panel-default">
 	<div class="panel-heading"><h4>{{ user.full_name }}</h4></div>
 	<div class="panel-body">
@@ -64,7 +67,7 @@
 		<div class="col-lg">
 			<div class="btn-group" role="group" aria-label="...">
 				<a type="button" class="btn btn-default" href="{% url 'inventory:student_edit' user.student_id %}">Edit Student</a>
-				<a type="button" class="btn btn-default" href="{% url 'inventory:device_search' user.student_id %}">Assign New Device</a>
+				<button type="button" class="btn btn-default" data-toggle="modal" data-target=".assign-device">Assign New Device</button>
 				<a type="button" class="btn btn-default" href="{% url 'inventory:student_index' %}">Back to Search</a>
 
 			</div>
@@ -72,5 +75,32 @@
 	</div>
 	</div>
 </div>
+</div>
+</div>
+<div class="modal fade assign-device" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Assign New Device to {{ user.full_name }}</h4>
+			</div>
+			<div class="modal-body">
+				<form method="post" action="{% url 'inventory:device_assign' %}" class="forms">
+					{% csrf_token %}
+					<input type="hidden" name="student_id" value="{{ user.student_id }}">
+					{% for field in form %}
+					<div class="form-group">
+						<label class="control-label">{{ field.label }}</label>
+						{{ field|add_class:"form-control chosen" }}
+					</div>
+					{% endfor %}
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       			<button type="button" class="btn btn-primary" id="form-submit">Save</button>
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock content %}

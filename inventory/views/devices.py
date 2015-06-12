@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.http import HttpResponse
 from django.conf import settings
+from inventory.forms import *
 import requests, json
 
 def device_search(request, student_id=0):
@@ -14,20 +15,29 @@ def device_search(request, student_id=0):
 		student = get_object_or_404(Student, student_id=student_id)
 		return render(request, 'inventory/device_search.html', { 'devices':devices, 'student':student })
 
-def device_assign(request, student_id, pk):
-	status_id = request.POST.get('status', 0)
+def device_edit(request, pk):
 	device = get_object_or_404(Device, pk=pk)
-	student = get_object_or_404(Student, student_id=student_id)
-	if status_id == 0:
-		status = Status.objects.all()
-		return render(request, 'inventory/device_assign.html', {'student':student, 'device': device, 'status': status})
-	else:
-		status = get_object_or_404(Status, pk=status_id)
-		device.student = student
-		device.status = status
-		device.save()
+	if request.method == "POST":
+		form = DeviceEditForm(request.POST, instance=device)
+		if form.is_valid():
+			device = form.save()
+			return redirect('inventory:device_show', device.pk)
+	form = DeviceEditForm(instance=device)
+	return render(request, 'inventory/device_edit.html', { 'form':form, 'device':device })
 
-		return redirect('inventory:student_show', student_id=student.student_id)
+def device_assign(request):
+	status_id = request.POST.get('status', 0)
+	device_id = request.POST.get('device', 0)
+	student_id = request.POST.get('student_id', 0)
+	device = get_object_or_404(Device, pk=device_id)
+	student = get_object_or_404(Student, student_id=student_id)
+	if status_id != 0:
+		status = get_object_or_404(Status, pk=status_id)
+		device.status = status
+	device.student = student
+	device.save()
+
+	return redirect('inventory:student_show', student_id=student.student_id)
 
 def device_show(request, pk):
 	device = get_object_or_404(Device, pk=pk)

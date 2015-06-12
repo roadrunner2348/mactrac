@@ -32,7 +32,8 @@ def student_index(request):
 
 def student_show(request, student_id):
 	user = get_object_or_404(Student, student_id=student_id)
-	return render(request, 'inventory/student_show.html', {'user': user})
+	form = AssignDeviceForm()
+	return render(request, 'inventory/student_show.html', {'user': user, 'form':form })
 
 def student_create(request):
 	title = "New Student"

@@ -8,5 +8,9 @@ $(document).ready(function() {
 		console.log(barcode);
 		$( this ).barcode(barcode, "code128", {barHeight:20, fontSize:14});
 	})
-	
+	$('select.chosen').chosen({disable_search_threshold: 10, width: "100%", search_contains: true});
+
+	$('#form-submit').click(function() {
+		$('form').submit();
+	});
 });

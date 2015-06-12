@@ -9,7 +9,6 @@ urlpatterns = [
 	url(r'^students/edit/(?P<student_id>[0-9]+)/$', views.student_edit, name='student_edit'),
 	url(r'^students/search/$', views.student_search, name='student_search'),
 	url(r'^students/(?P<student_id>\w+)/assign/$', views.device_search, name='device_search'),
-	url(r'^students/(?P<student_id>\w+)/assign/(?P<pk>\w+)/$', views.device_assign, name='device_assign'),
 	url(r'^students/create/$', views.student_create, name='student_create'),
 
 
@@ -20,8 +19,10 @@ urlpatterns = [
 # Devices URLs
 	url(r'^devices/search/$', views.device_search, name='device_search'),
 	url(r'^devices/(?P<pk>[0-9]+)/$', views.device_show, name='device_show'),
+	url(r'^devices/(?P<pk>[0-9]+)/edit/$', views.device_edit, name='device_edit'),
 	url(r'^devices/import/$', views.device_import_select, name='device_import_select'),
 	url(r'^devices/import/(?P<group_id>[0-9]+)$', views.device_import, name='device_import'),
+	url(r'^devices/assign/$', views.device_assign, name='device_assign'),
 	
 
 

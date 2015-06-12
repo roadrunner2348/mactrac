@@ -16,7 +16,9 @@
           <link rel="stylesheet" href="http://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" />
           <!-- Datatables Responsive CSS -->
           <link rel="stylesheet" href="http://cdn.datatables.net/responsive/1.0.6/css/dataTables.responsive.css" />
-          <!-- Custom CSS File -->
+          <!-- CSS File for Chosen Jquery Plugin -->
+          <link rel="stylesheet" href="{% static 'inventory/chosen/chosen.min.css' %}" />
+             <!-- Custom CSS File -->
           <link rel="stylesheet" href="{% static 'inventory/style.css' %}" />
     </head>
 
@@ -86,6 +88,8 @@
     <script src="http://cdn.datatables.net/responsive/1.0.6/js/dataTables.responsive.js"></script>
        <!-- Barcode Generator for print views -->
     <script src="{% static 'inventory/jquery-barcode.min.js' %}"></script>
+    <!-- Chosen jQuery plugin -->
+    <script src="{% static 'inventory/chosen/chosen.jquery.js' %}"></script>
     <script src="{% static 'inventory/tables.js' %}"></script>
     </body>
 </html>
