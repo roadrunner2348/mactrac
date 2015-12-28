@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='student',
             name='program',
-            field=models.ForeignKey(on_delete=b'SET_DEFAULT', default=b'1', to='inventory.Program'),
+            field=models.ForeignKey(on_delete='SET_DEFAULT', default='1', to='inventory.Program'),
         ),
     ]

@@ -23,7 +23,7 @@ urlpatterns = [
 	url(r'^devices/import/$', views.device_import_select, name='device_import_select'),
 	url(r'^devices/import/(?P<group_id>[0-9]+)$', views.device_import, name='device_import'),
 	url(r'^devices/assign/$', views.device_assign, name='device_assign'),
-	
+
 
 
 ]

@@ -2,3 +2,5 @@
 .DS_Store
 env/
 *.pyc
+settings.py
+settings_mysql.py
